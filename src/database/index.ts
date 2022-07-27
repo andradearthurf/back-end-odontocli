@@ -13,3 +13,4 @@ export default async (host = "db_odontocli"): Promise<Connection> => {
     })
   );
 };
+
