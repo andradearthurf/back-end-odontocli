@@ -6,7 +6,7 @@ class PacienteRepository extends Repository<Paciente> {
   public async findByCpf(cpf: string) {
     const findCpf = await this.findOne({where: {cpf}})
     
-    return findCpf
+    return findCpf;
   }
 }
 
