@@ -2,9 +2,13 @@ import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
+  ManyToOne,
+  OneToMany,
+  JoinColumn,
 } from 'typeorm';
 
 import { v4 as uuidv4 } from "uuid";
+import Paciente from './Paciente';
 
 @Entity('cidade')
 class Cidade {
@@ -16,6 +20,10 @@ class Cidade {
 
   @Column()
   uf: string;
+
+  @OneToMany(() => Paciente, paciente => paciente.cidade)
+  // @JoinColumn({name: "cidade"})a
+  cidade: Paciente[]
 
   constructor(){
     if (!this.idCidade){

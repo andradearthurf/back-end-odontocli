@@ -4,6 +4,7 @@ import {
   PrimaryColumn,
   OneToMany,
   JoinColumn,
+  ManyToOne,
 } from 'typeorm';
 
 import Cidade from './Cidade';
@@ -32,9 +33,9 @@ class Paciente {
   @Column()
   cepEndereco: string;
 
-  @OneToMany(() => Cidade, cidade => cidade.idCidade)
-  @JoinColumn({name: "idCidade"})
-  idCidade: Cidade
+  @ManyToOne(() => Cidade, cidade => cidade.idCidade)
+  @JoinColumn({name: "cidade"})
+  cidade: string;
 }
 
 export default Paciente;

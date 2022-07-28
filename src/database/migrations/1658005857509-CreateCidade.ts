@@ -13,11 +13,11 @@ export class CreateCidade1658005857509 implements MigrationInterface {
               },
               {
                 name: "nomeCidade",
-                type: "varchar(45)",
+                type: "varchar",
               },
               {
                 name: "uf",
-                type: "char(2)",
+                type: "varchar",
               },
             ],
           })

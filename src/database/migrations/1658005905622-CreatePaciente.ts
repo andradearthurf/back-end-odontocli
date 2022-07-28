@@ -8,16 +8,16 @@ export class CreatePaciente1658005905622 implements MigrationInterface {
             columns: [
               {
                 name: "cpf",
-                type: "varchar(11)",
+                type: "varchar",
                 isPrimary: true,
               },
               {
                 name: "nomeCompleto",
-                type: "varchar(45)",
+                type: "varchar",
               },
               {
                 name: "telefone",
-                type: "varchar(20)",
+                type: "varchar",
               },
               {
                 name: "dtNascimento",
@@ -29,14 +29,14 @@ export class CreatePaciente1658005905622 implements MigrationInterface {
               },
               {
                 name: "logradouroEndereco",
-                type: "varchar(45)",
+                type: "varchar",
               },
               {
                 name: "cepEndereco",
-                type: "char(8)"
+                type: "varchar"
               },
               {
-                name: "idCidade",
+                name: "cidade",
                 type: "uuid",
               }
             ],
@@ -45,7 +45,7 @@ export class CreatePaciente1658005905622 implements MigrationInterface {
                     name: "FKCidadePaciente",
                     referencedTableName: "cidade",
                     referencedColumnNames: ["idCidade"],
-                    columnNames: ["idCidade"],
+                    columnNames: ["cidade"],
                     onDelete: "SET NULL",
                     onUpdate: "SET NULL",
                 }
