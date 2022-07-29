@@ -1,30 +1,11 @@
-import { Router } from 'express';
-import { getCustomRepository } from 'typeorm';
-import CidadeRepository from '../repositories/CidadeRepository';
-import CreateCidade from '../services/CreateCidade';
+import { Router } from "express";
+import { CreateCidadeController } from "../controllers/cidade/CreateCidadeController";
+import { GetAllCidadesController } from "../controllers/cidade/GetAllCidadesController";
 
 const cidadesRouter = Router();
 
-cidadesRouter.post('/create', async (request, response) => {
-  const { nomeCidade } = request.body;
+cidadesRouter.post("/create", new CreateCidadeController().handle);
 
-  const createCidade = new CreateCidade();
+cidadesRouter.get("/list", new GetAllCidadesController().handle);
 
-  const cidade = await createCidade.execute({
-    nomeCidade,
-    uf: "ES",
-  });
-
-  return response.json(cidade);
-});
-
-cidadesRouter.get('/list', async (request, response) => {
-  const cidadeRepository = getCustomRepository(CidadeRepository);
-
-  const cidades = await cidadeRepository.find();
-
-  return response.json(cidades);
-
-});
-
-export default cidadesRouter;
+export { cidadesRouter }

@@ -1,72 +1,31 @@
-import { Router } from 'express';
-import { getCustomRepository } from 'typeorm';
-import PacienteRepository from '../repositories/PacienteRepository';
-import CreatePaciente from '../services/CreatePaciente';
-import * as yup from 'yup';
+import { Router } from "express";
+import { CountPacientesController } from "../controllers/paciente/CountPacientesController";
+import { CreatePacienteController } from "../controllers/paciente/CreatePacienteController";
+import { DeletePacienteController } from "../controllers/paciente/DeletePacienteController";
+import { GetAllPacientesController } from "../controllers/paciente/GetAllPacientesController";
 
 const pacientesRouter = Router();
 
-pacientesRouter.post('/create', async (request, response) => {
-  const { 
-    cpf,
-    nomeCompleto,
-    telefone,
-    dtNascimento,
-    numeroEndereco,
-    logradouroEndereco,
-    cepEndereco,
-    cidade } = request.body;
+pacientesRouter.post("/create", new CreatePacienteController().handle);
 
-  const dateRegex = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
-    
-  const nameRegex = /^[A-ZÀ-Ÿ][A-zÀ-ÿ']+\s([A-zÀ-ÿ']\s?)*[A-ZÀ-Ÿ][A-zÀ-ÿ']+$/;
+pacientesRouter.get("/list", new GetAllPacientesController().handle);
 
-  let schema = yup.object().shape({
-    cpf: yup.string().required("O cpf é obrigatório!").max(11, "A quantidade de números é onze!").min(11, "A quantidade de números é onze!").matches(/^[0-9]+$/, "O cpf aceita apenas números!"),
-    nomeCompleto: yup.string().required("O nome do paciente é obrigatório!").matches(nameRegex, "O nome do paciente deve estar no formato certo!"),
-    telefone: yup.string().required("O telefone é obrigatório!").matches(/^[0-9]+$/, "O telefone aceita apenas números!").max(12, "A quantidade de números do telefone é 12!").min(12, "A quantidade de números do telefone é 12!"),
-    dtNascimento: yup.string().required("A data de nascimento é obrigatória!").matches(dateRegex, "O formato deve ser dd/mm/yyyy!"),
-    numeroEndereco: yup.string().required("O número de endereço é obrigatório!").matches(/^[0-9]+$/, "O número de endereço aceita apenas números!"),
-    logradouroEndereco: yup.string().required("O logradouro é obrigatório!"),
-    cepEndereco: yup.string().required("O cep é obrigatório!").matches(/^([0-9]{5})\-([0-9]{3})$/, "O formato do cep deve ser nnnnn-nnn!"),
-    cidade: yup.string().required("A cidade é obrigatória!"),
-  });
+pacientesRouter.get("/count", new CountPacientesController().handle);
 
-  await schema.validate(request.body);
+pacientesRouter.delete("/delete/:cpf", new DeletePacienteController().handle);
 
-  const createPaciente = new CreatePaciente();
-
-  const paciente = await createPaciente.execute({
-    cpf,
-    nomeCompleto,
-    telefone,
-    dtNascimento,
-    numeroEndereco,
-    logradouroEndereco,
-    cepEndereco,
-    cidade
-  });
-
-  return response.json(paciente);
-});
-
-pacientesRouter.get('/list', async (request, response) => {
-  const pacienteRepository = getCustomRepository(PacienteRepository);
-
-  const pacientes = await pacienteRepository.find();
-
-  return response.json(pacientes);
-
-});
-
-pacientesRouter.get('/count', async (request, response) => {
-  const pacienteRepository = getCustomRepository(PacienteRepository);
-
-  const qtdPacientes = (await pacienteRepository.find()).length;
-
-  return response.json(qtdPacientes);
-
-});
+export { pacientesRouter }
 
 
-export default pacientesRouter;
+
+// pacientesRouter.get('/count', async (request, response) => {
+//   const pacienteRepository = getCustomRepository(PacienteRepository);
+
+//   const qtdPacientes = (await pacienteRepository.find()).length;
+
+//   return response.json(qtdPacientes);
+
+// });
+
+
+// export default pacientesRouter;

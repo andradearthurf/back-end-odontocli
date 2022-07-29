@@ -1,7 +1,8 @@
 import { getCustomRepository } from "typeorm";
-import AppError from "../errors/AppError";
-import Paciente from "../models/Paciente";
-import PacienteRepository from "../repositories/PacienteRepository";
+import AppError from "../../errors/AppError";
+import Paciente from "../../models/Paciente";
+import PacienteRepository from "../../repositories/PacienteRepository";
+
 
 interface Request {
     cpf: string;
@@ -15,7 +16,7 @@ interface Request {
 }
 
 
-class UpdatePaciente {
+export class CreatePacienteService {
 
   public async execute({     
     cpf,
@@ -26,14 +27,15 @@ class UpdatePaciente {
     logradouroEndereco ,
     cepEndereco,
     cidade, }: Request): Promise<Paciente> {
-    const pacienteRepository = getCustomRepository(PacienteRepository);
+    const repo = getCustomRepository(PacienteRepository);
     
-    const findCpf = await pacienteRepository.findByCpf(cpf);
+    const findCpf = await repo.findByCpf(cpf);
+    
     if (findCpf){
       throw new AppError("Paciente já foi cadastrado!");
     }
 
-    const paciente = pacienteRepository.create({
+    const paciente = repo.create({
         cpf,
         nomeCompleto,
         telefone,
@@ -44,10 +46,9 @@ class UpdatePaciente {
         cidade
     });
 
-    await pacienteRepository.save(paciente);
+    await repo.save(paciente);
 
     return paciente;
   }
 }
 
-export default UpdatePaciente;
