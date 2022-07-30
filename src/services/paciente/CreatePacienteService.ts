@@ -35,6 +35,12 @@ export class CreatePacienteService {
       throw new AppError("Paciente já foi cadastrado!");
     }
 
+    const validCpf = await repo.validatorOfCpf(cpf);
+
+    if (!validCpf) {
+      throw new AppError("O Cpf inserido é inválido!");
+    }
+
     const paciente = repo.create({
         cpf,
         nomeCompleto,
