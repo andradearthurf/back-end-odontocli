@@ -6,7 +6,7 @@ export class GetAllPacientesService {
   public async execute() {
     const repo = getRepository(Paciente);
 
-    const pacientes = await repo.find();
+    const pacientes = await repo.find({ relations: ["cidade"] });
 
     return pacientes;
   }
