@@ -8,6 +8,11 @@ class CidadeRepository extends Repository<Cidade> {
     
     return findNomeCidade;
   }
+  public async findByIdCidade(idCidade: string) {
+    const findIdCidade = await this.findOne({where: {idCidade}})
+    
+    return findIdCidade;
+  }
 }
 
 export default CidadeRepository;

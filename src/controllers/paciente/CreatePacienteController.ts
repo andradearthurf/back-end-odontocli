@@ -19,6 +19,7 @@ export class CreatePacienteController {
       const dateRegex = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
     
       const nameRegex = /^[A-ZÀ-Ÿ][A-zÀ-ÿ']+\s([A-zÀ-ÿ']\s?)*[A-ZÀ-Ÿ][A-zÀ-ÿ']+$/;
+
       
       let schema = yup.object().shape({
         cpf: yup.string().required("O cpf é obrigatório!").max(11, "A quantidade de números é onze!").min(11, "A quantidade de números é onze!").matches(/^[0-9]+$/, "O cpf aceita apenas números!"),
