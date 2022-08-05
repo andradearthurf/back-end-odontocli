@@ -8,7 +8,9 @@
     "scripts": {
         "dev": "ts-node-dev --transpile-only --ignore-watch node_modules --respawn src/server.ts",
         "typeorm": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
-        "test": "NODE_ENV=test jest"
+        "test": "NODE_ENV=test jest",
+        "seed:cidade": "ts-node-dev src/database/seed/cidade.ts",
+        "seed:paciente": "ts-node-dev src/database/seed/paciente.ts"
     },
     "dependencies": {
         "cors": "^2.8.5",
@@ -18,6 +20,7 @@
         "pg": "^8.7.3",
         "reflect-metadata": "^0.1.13",
         "typeorm": "^0.2.44",
+        "typeorm-extension": "^2.1.5",
         "uuid": "^8.3.2",
         "yup": "^0.32.11"
     },

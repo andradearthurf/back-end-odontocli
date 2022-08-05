@@ -1,7 +1,7 @@
 {
     "type": "postgres",
     "host": "localhost",
-    "post": 5432,
+    "port": 5432,
     "username": "postgres",
     "password": "docker",
     "database": "db_odontocli",
