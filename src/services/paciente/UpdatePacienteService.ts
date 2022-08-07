@@ -1,6 +1,7 @@
 import { getCustomRepository } from "typeorm";
 import AppError from "../../errors/AppError";
 import PacienteRepository from "../../repositories/PacienteRepository";
+import CidadeRepository from "../../repositories/CidadeRepository";
 
 interface Request {
   cpf: string;
@@ -25,10 +26,18 @@ export class UpdatePacienteService {
     cidade,}: Request) {
     const repo = getCustomRepository(PacienteRepository);
 
+    const repoCidade = getCustomRepository(CidadeRepository);
+
     const updatePaciente = await repo.findByCpf(cpf);
     
     if (!updatePaciente){
       throw new AppError("Paciente não existe para ser atualizado!");
+    }
+
+    const findIdCidade = await repoCidade.findByIdCidade(cidade);
+
+    if (!findIdCidade){
+      throw new AppError("Não existe uma cidade com este id!");
     }
 
     updatePaciente.cpf = updatePaciente.cpf;
