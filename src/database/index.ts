@@ -5,7 +5,7 @@ export default async (host = "db_odontocli"): Promise<Connection> => {
 
   return createConnection(
     Object.assign(defaultOptions, {
-      host: process.env.NODE_ENV === "test" ? "localhost" : host,
+      host: host,
       database:
         process.env.NODE_ENV === "test"
           ? "odontocli_test"
