@@ -64,7 +64,7 @@ async function create() {
       ('${uuidv4()}', 'Pinheiros', 'ES'),
       ('${uuidv4()}', 'Piúma', 'ES'),
       ('${uuidv4()}', 'Ponto Belo', 'ES'),
-      ('${uuidv4()}', 'Presuuidv4()ente Kennedy', 'ES'),
+      ('${uuidv4()}', 'Presidente Kennedy', 'ES'),
       ('${uuidv4()}', 'Rio Bananal', 'ES'),
       ('${uuidv4()}', 'Rio Novo do Sul', 'ES'),
       ('${uuidv4()}', 'Santa Leopoldina', 'ES'),
