@@ -33,3 +33,4 @@ O presente projeto utiliza os seguintes recursos:
 - TypeORM
 - Yarn
 - Docker
+- Yup
